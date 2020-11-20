@@ -1,31 +1,45 @@
 <% include header %>
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <br><br>
-      <a href="/add" class="btn btn-sm btn-success">Add</a><br><br>
-      <table class="table table-bordered">
-        <tr>
-          <th>No</th>
-          <th>Judul</th>
-          <th>Deskripsi</th>
-          <th>Gambar</th>
-          <th>Aksi</th>
-        </tr>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>judul</td>
-            <td>test</td>
-            <td>image</td>
-            <td>
-              <a href="/edit/:id" class="btn btn-sm btn-primary">Edit</a>
-              <a href="/delete/:id" class="btn btn-sm btn-danger">Delete</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="row">
+        <div class="col-md-12">
+            <br><br>
+            <% if (messages.msg_success) { %>
+            <div class="alert alert-success">
+                <strong>info !</strong> <%= messages.msg_success %>
+            </div>
+            <% } %>
+            <% if (messages.msg_error) { %>
+                <div class="alert alert-danger">
+                    <strong>oops !</strong> <%= messages.msg_error %>
+                </div>
+            <% } %>
+            <a href="/add" class="btn btn-sm btn-success">Add</a><br><br>
+            <table class="table table-bordered">
+                <tr>
+                    <th>No</th>
+                    <th>Judul</th>
+                    <th>Deskripsi</th>
+                    <th>Gambar</th>
+                    <th>Aksi</th>
+                </tr>
+                <tbody>
+                    <% var no = 1; result.rows.forEach(function(res){ %>
+                        <tr>
+                        <td class="tengah"><%= no %></td>
+                        <td class="tengah"><%= res.judul %></td>
+                        <td class="tengah"><%= res.deskripsi %></td>
+                        <td class="tengah">
+                            <img src="/images/<%= res.gambar %>" alt="">
+                        </td>
+                        <td>
+                            <a href="/edit/<%= res.id %>" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="/delete/<%= res.id %>" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                      </tr>
+                     <% no++ }) %>          
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
 </div>
 <% include footer %>

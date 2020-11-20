@@ -1,9 +1,15 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const db = require('../database/models')
+const Blogs = db.Blogs;
+const router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', async function(req, res) {
+    const data = { 
+        title: 'Express', 
+        result: await Blogs.findAndCountAll()
+    }
+    res.render('index', data );
 });
 
 module.exports = router;
